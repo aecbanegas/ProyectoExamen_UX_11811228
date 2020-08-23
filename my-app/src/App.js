@@ -56,11 +56,13 @@ class App extends React.Component {
 
   fRemove = (i) => {
     let datas = this.state.datas;
+    let globaldatas = this.state.globaldatas;
     datas.splice(i, 1);
     this.setState({
       datas: datas
     });
-
+    localStorage.setItem('datas', JSON.stringify(datas));
+    localStorage.setItem('globaldatas', JSON.stringify(globaldatas));
     this.refs.myForm.reset();
     this.refs.note.focus();
   }
@@ -96,9 +98,9 @@ class App extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="collapsibleNavbar">
-            <form ref="search" className="form-inline form-row ml-auto">
-              <input ref="wordsearch" className="form-control mt-2 mb-2 mx-2 mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-              <button className="btn btn-outline-light mt-2 mb-2 mx-2" onClick={(e) => this.fSearch(e)}>Search Tag</button>
+            <form ref="search" className="form-inline ml-auto">
+              <input type="text" ref="wordsearch" placeholder="Search..." className="formField" />
+              <button type="submit" className="btn btn-outline-light mt-2 mb-2 mx-2" onClick={(e) => this.fSearch(e)}>Search Tag</button>
             </form>
           </div>
         </nav>
@@ -109,7 +111,7 @@ class App extends React.Component {
               <input type="text" ref="note" placeholder="Your new note..." className="formField" />
               <label id="addTags" className="mt-2 mb-2 mx-2">Add Tags:</label>
               <input type="text" ref="tags" placeholder="e.g. tag1,tag2,tag3" className="formField" />
-              <button type="submit" className="btn btn-outline-light  mt-2 mb-2 mx-2" style={{ background: "rgba(52, 20, 249, 0.57)" }} onClick={(e) => this.fSubmit(e)}>Add Note</button>
+              <button type="submit" className="btn btn-outline-light mt-2 mb-2 mx-2" style={{ background: "rgba(52, 20, 249, 0.57)" }} onClick={(e) => this.fSubmit(e)}>Add Note</button>
             </div>
           </form>
           <ul className="list-group">
