@@ -1,21 +1,61 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Text} from 'react';
 import './App.css';
 
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      textValue: 'Change me',
+      act: 0,
+      index: '',
+      datas: [],
     }
-    this.onPress = this.onPress.bind(this)
   }
-  
 
-  onPress = () => {
-    this.setState({textValue: 'Joder'});
+  componentDidMount() {
+    this.refs.note.focus();
+  }
+
+  fSubmit = (e) => {
+    const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    e.preventDefault();
+    console.log('try');
+
+    let datas = this.state.datas;
+    let note = this.refs.note.value;
+    let current_datetime = new Date()
+    let formatted_date = current_datetime.getDate() + "/" + months[current_datetime.getMonth()] + "/" + current_datetime.getFullYear() +" "+current_datetime.getHours()+":"+current_datetime.getMinutes()+":"+current_datetime.getSeconds()
+    console.log(formatted_date)
+    let date = formatted_date;
+
+
+    let data = {
+      note, date,
+    }
+    datas.push(data);
+
+
+    this.setState({
+      datas: datas,
+      act: 0
+    });
+
+    this.refs.myForm.reset();
+    this.refs.note.focus();
+  }
+
+  fRemove = (i) => {
+    let datas = this.state.datas;
+    datas.splice(i, 1);
+    this.setState({
+      datas: datas
+    });
+
+    this.refs.myForm.reset();
+    this.refs.note.focus();
   }
   render() {
+    let datas = this.state.datas;
     return (
       <Fragment>
         <nav className="navbar navbar-light navbar-expand-md" style={{ background: "rgba(52, 20, 249, 0.57)" }}>
@@ -25,46 +65,32 @@ class App extends React.Component {
           </button>
           <div className="collapse navbar-collapse" id="collapsibleNavbar">
             <form className="form-inline form-row ml-auto">
-              <button className="btn btn-outline-light mt-2 mb-2 mx-2" type="button" data-toggle="modal" data-target="#myModal">Add Note</button>
               <input className="form-control mt-2 mb-2 mx-2 mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
               <button className="btn btn-outline-light mt-2 mb-2 mx-2" type="submit">Search Tag</button>
             </form>
           </div>
         </nav>
         <div className="App container-fluid">
-          <ul className="list-group">
-            <li className="list-group-item d-flex">
-              <div>Inbox</div>
-              <div className="ml-auto">
-                <button className="btn btn-outline-dark mx-2" type="button">X</button>
-              </div>
-            </li>
-            <li className="list-group-item d-flex">
-              <span className="badge badge-dark">Dark</span>
-            </li>
-          </ul>
-        </div>
-        <div className="modal" id="myModal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-
-              <div className="modal-header">
-                <h4 className="modal-title">Add a new note</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
-              </div>
-
-              <div className="modal-body">
-                <label id="comment_head">Notes:</label>
-                <textarea className="form-control" rows="5" id="comment">{this.state.textValue}</textarea>
-              </div>
-
-              <div className="modal-footer">
-                <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => this.onPress}>Close</button>
-                <button type="button" className="btn btn-success" data-dismiss="modal">Add</button>
-              </div>
-
+          <form ref="myForm">
+            <div className="form group">
+              <label id="addNotes">Add Notes:</label>
+              <input type="text" ref="note" placeholder="Your new note..." className="formField" />
+              <button type="submit" className="btn btn-outline-light mt-2 mb-2" style={{ background: "rgba(52, 20, 249, 0.57)" }} onClick={(e) => this.fSubmit(e)}>Add Note</button>
             </div>
-          </div>
+          </form>
+          <ul className="list-group">
+            {datas.map((data, i) =>
+              <li key={i} className="list-group-item d-flex flex-wrap">
+                <div>
+                  <div className="d-flex flex-wrap">Note: {data.note}</div>
+                  <div className="d-flex flex-wrap">Date: {data.date}</div>
+                </div>
+                <div className="ml-auto">
+                  <button onClick={() => this.fRemove(i)} className="btn btn-outline-dark mt-2 mb-2 mx-2">remove </button>
+                </div>
+              </li>
+            )}
+          </ul>
         </div>
       </Fragment>
     );
