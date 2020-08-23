@@ -3,19 +3,16 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container-fluid">
       <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Inbox
-    <span class="badge badge-primary badge-pill">12</span>
+        <li class="list-group-item d-flex">
+          <div>Inbox</div>
+          <div class="ml-auto">
+            <button class="btn btn-outline-dark mx-2" type="button">X</button>
+          </div>
         </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Ads
-    <span class="badge badge-primary badge-pill">50</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Junk
-    <span class="badge badge-primary badge-pill">99</span>
+        <li class="list-group-item d-flex">
+        <span class="badge badge-dark">Dark</span>
         </li>
       </ul>
     </div>
