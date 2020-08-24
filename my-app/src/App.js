@@ -1,23 +1,25 @@
-import React, { Fragment, Text } from 'react';
+import React, { Fragment} from 'react';
 import './App.css';
-
+import NavBar from './NavBar'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       datas: [],
-      globaldatas: [],
+      search:'',
     }
+  }
+
+  genQuery = (qry) => {
+    this.setState({ search: qry })
   }
 
   componentDidMount() {
     this.refs.note.focus();
     const json = localStorage.getItem('datas');
     const datas = JSON.parse(json) || [];
-    const json2 = localStorage.getItem('globaldatas');
-    const globaldatas = JSON.parse(json2) || [];
-    this.setState({ datas, globaldatas });
+    this.setState({ datas,});
   }
 
   fSubmit = (e) => {
@@ -37,73 +39,32 @@ class App extends React.Component {
     let data = {
       note, date, tags
     }
-    let globaldata = {
-      note, date, tags
-    }
     datas.push(data);
-    let globaldatas = this.state.globaldatas;
-    globaldatas.push(globaldata)
 
     this.setState({
       datas: datas,
-      globaldatas: globaldatas,
     });
     localStorage.setItem('datas', JSON.stringify(datas));
-    localStorage.setItem('globaldatas', JSON.stringify(globaldatas));
     this.refs.myForm.reset();
     this.refs.note.focus();
   }
 
   fRemove = (i) => {
     let datas = this.state.datas;
-    let globaldatas = this.state.globaldatas;
     datas.splice(i, 1);
     this.setState({
       datas: datas
     });
     localStorage.setItem('datas', JSON.stringify(datas));
-    localStorage.setItem('globaldatas', JSON.stringify(globaldatas));
     this.refs.myForm.reset();
     this.refs.note.focus();
-  }
-
-  fSearch = (e) => {
-    let searchWord = String(this.refs.wordsearch.value);
-    console.log("La palabra es " + searchWord);
-    let datas = this.state.datas;
-    let globaldatas = this.state.globaldatas;
-    if (searchWord = '') {
-      datas = globaldatas;
-    } else {
-      let arraydata = [];
-      for (let index = 0; index < globaldatas.length; index++) {
-        console.log(typeof globaldatas[index].tags)
-        console.log(globaldatas[index].tags)
-        if (globaldatas[index].tags.includes(searchWord)) {
-          arraydata.push(globaldatas[index]);
-          console.log("entra al if: " + globaldatas[index].tags)
-        }
-      }
-      datas = arraydata;
-    }
   }
 
   render() {
     let datas = this.state.datas;
     return (
       <Fragment>
-        <nav className="navbar navbar-light navbar-expand-md" style={{ background: "rgba(52, 20, 249, 0.57)" }}>
-          <a className="navbar-brand text-white">NoteIt</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="collapsibleNavbar">
-            <form ref="search" className="form-inline ml-auto">
-              <input type="text" ref="wordsearch" placeholder="Search..." className="formField" />
-              <button type="submit" className="btn btn-outline-light mt-2 mb-2 mx-2" onClick={(e) => this.fSearch(e)}>Search Tag</button>
-            </form>
-          </div>
-        </nav>
+        <NavBar genQuery={this.genQuery}/>
         <div className="App container-fluid">
           <form ref="myForm">
             <div className="form-group-lg">
@@ -116,6 +77,7 @@ class App extends React.Component {
           </form>
           <ul className="list-group">
             {datas.map((data, i) =>
+            (findit(data.tags, this.state.search)) && (
               <li key={i} className="list-group-item d-flex flex-wrap justify-content-between">
                 <div>
                   <p className="text-justify text-break">Note: {data.note}</p>
@@ -130,12 +92,26 @@ class App extends React.Component {
                   <button onClick={() => this.fRemove(i)} className="btn btn-outline-dark mt-2 mb-2 mx-2">remove </button>
                 </div>
               </li>
-            )}
+            ))}
           </ul>
         </div>
       </Fragment>
     );
   }
+}
+
+
+function findit(arr, qry){
+  if (!arr.length) {
+      return true
+  }
+  for (let i = 0; i < arr.length; i++) {
+      const el = arr[i];
+      if (el.includes(qry)) {
+         return true 
+      }
+  }
+  return false
 }
 
 export default App;
