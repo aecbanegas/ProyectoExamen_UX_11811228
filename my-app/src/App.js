@@ -3,6 +3,7 @@ import './App.css';
 import NavBar from './NavBar'
 
 class App extends React.Component {
+  //Constructor base
   constructor(props) {
     super(props);
     this.state = {
@@ -10,22 +11,21 @@ class App extends React.Component {
       search:'',
     }
   }
-
+  //funcion que asigna la query que se trae desde navbar a App.js
   genQuery = (qry) => {
     this.setState({ search: qry })
   }
-
+  //Al montar eel componente recupera informacion de local storage
   componentDidMount() {
     this.refs.note.focus();
     const json = localStorage.getItem('datas');
     const datas = JSON.parse(json) || [];
     this.setState({ datas,});
   }
-
+  //Al hacer click a insertar en el button Add Note de JSX se obtiene la informacion por medio de referencias y se guarda en local storage
   fSubmit = (e) => {
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     e.preventDefault();
-    console.log('try');
 
     let datas = this.state.datas;
     let note = this.refs.note.value;
@@ -44,11 +44,12 @@ class App extends React.Component {
     this.setState({
       datas: datas,
     });
+    //Localstorage
     localStorage.setItem('datas', JSON.stringify(datas));
     this.refs.myForm.reset();
     this.refs.note.focus();
   }
-
+  //Funcion encargada de eliminar una nota, esta tambien se elimina de localstorage por igual
   fRemove = (i) => {
     let datas = this.state.datas;
     datas.splice(i, 1);
@@ -77,7 +78,7 @@ class App extends React.Component {
           </form>
           <ul className="list-group">
             {datas.map((data, i) =>
-            (findit(data.tags, this.state.search)) && (
+            (buscar(data.tags, this.state.search)) && (
               <li key={i} className="list-group-item d-flex flex-wrap justify-content-between">
                 <div>
                   <p className="text-justify text-break">Note: {data.note}</p>
@@ -101,7 +102,7 @@ class App extends React.Component {
 }
 
 
-function findit(arr, qry){
+function buscar(arr, qry){
   if (!arr.length) {
       return true
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 class NavBar extends React.Component {
+    //metodo para obtener la informacion del input JSX de search
     catch = (query) => {
         query = this.textInput.value 
         this.props.genQuery(query)
@@ -23,6 +24,5 @@ class NavBar extends React.Component {
         );
     }
 }
-//ref={(input) => { this.textInput = input }} onChange={()=>this.catch(query) }
 
 export default NavBar
