@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ProyectoExamen_UX_11811228/static/css/main.361da6de.chunk.css",
+    "main.js": "/ProyectoExamen_UX_11811228/static/js/main.89dd80c2.chunk.js",
+    "main.js.map": "/ProyectoExamen_UX_11811228/static/js/main.89dd80c2.chunk.js.map",
+    "runtime-main.js": "/ProyectoExamen_UX_11811228/static/js/runtime-main.07556e44.js",
+    "runtime-main.js.map": "/ProyectoExamen_UX_11811228/static/js/runtime-main.07556e44.js.map",
+    "static/js/2.7ba041ee.chunk.js": "/ProyectoExamen_UX_11811228/static/js/2.7ba041ee.chunk.js",
+    "static/js/2.7ba041ee.chunk.js.map": "/ProyectoExamen_UX_11811228/static/js/2.7ba041ee.chunk.js.map",
+    "index.html": "/ProyectoExamen_UX_11811228/index.html",
+    "precache-manifest.8ec64419e73e24159c5a7a1772235ab5.js": "/ProyectoExamen_UX_11811228/precache-manifest.8ec64419e73e24159c5a7a1772235ab5.js",
+    "service-worker.js": "/ProyectoExamen_UX_11811228/service-worker.js",
+    "static/css/main.361da6de.chunk.css.map": "/ProyectoExamen_UX_11811228/static/css/main.361da6de.chunk.css.map",
+    "static/js/2.7ba041ee.chunk.js.LICENSE.txt": "/ProyectoExamen_UX_11811228/static/js/2.7ba041ee.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.07556e44.js",
+    "static/js/2.7ba041ee.chunk.js",
+    "static/css/main.361da6de.chunk.css",
+    "static/js/main.89dd80c2.chunk.js"
+  ]
+}
