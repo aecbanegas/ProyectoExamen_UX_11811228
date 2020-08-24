@@ -5,7 +5,7 @@
   "background_color": "#000000",
   "display": "standalone",
   "scope": "/",
-  "start_url": "../src/serviceWorker.js",
+  "start_url": "/src/serviceWorker.js",
   "icons": [
     {
       "src": "images/icons/icon-192x192.png",
