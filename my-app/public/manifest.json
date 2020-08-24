@@ -1,8 +1,8 @@
 {
   "name": "NoteIt",
   "short_name": "NI",
-  "theme_color": "rgba(81,33,243,0.81)",
-  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
